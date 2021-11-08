@@ -1,4 +1,4 @@
-package kirillkitten.shikimori
+package kirillkitten.shikimori.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
