@@ -1,5 +1,5 @@
 package kirillkitten.shikimori.data
 
 interface AnimeRepository {
-    suspend fun getAnimeList(limit: Int): List<Anime>
+    suspend fun getAnimes(limit: Int): List<Anime>
 }

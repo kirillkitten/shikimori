@@ -1,12 +1,15 @@
 package kirillkitten.shikimori.data
 
-import kirillkitten.shikimori.data.remote.AnimeService
+import kirillkitten.shikimori.ANIME_LIST_MAX_SIZE
+import kirillkitten.shikimori.data.remote.AnimeApi
 import kirillkitten.shikimori.data.remote.RemoteAnime
 import javax.inject.Inject
 
-class AnimeRepositoryImpl @Inject constructor(private val service: AnimeService) :
+class AnimeRepositoryImpl @Inject constructor(private val api: AnimeApi) :
     AnimeRepository {
-    override suspend fun getAnimeList(limit: Int): List<Anime> {
-        return service.animes(10).map(RemoteAnime::toDomainModel)
+
+    override suspend fun getAnimes(limit: Int): List<Anime> {
+        return api.getAnimes(ANIME_LIST_MAX_SIZE).map(RemoteAnime::toDomainModel)
     }
+
 }

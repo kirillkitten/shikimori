@@ -8,7 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import kirillkitten.shikimori.BASE_URL
 import kirillkitten.shikimori.data.AnimeRepository
 import kirillkitten.shikimori.data.AnimeRepositoryImpl
-import kirillkitten.shikimori.data.remote.AnimeAPI
+import kirillkitten.shikimori.data.remote.AnimeApi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -19,15 +19,15 @@ abstract class AnimeModule {
 
     @Binds
     @Singleton
-    abstract fun bindAnimeRepository(impl: AnimeRepositoryImpl): AnimeRepository
+    abstract fun bindAnimeRepository(repository: AnimeRepositoryImpl): AnimeRepository
 
     companion object {
         @Provides
         @Singleton
-        fun provideAnimeAPI(): AnimeAPI = Retrofit.Builder()
+        fun provideAnimeAPI(): AnimeApi = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
-            .create(AnimeAPI::class.java)
+            .create(AnimeApi::class.java)
     }
 }
