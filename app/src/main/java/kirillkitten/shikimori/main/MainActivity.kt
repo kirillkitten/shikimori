@@ -3,6 +3,9 @@ package kirillkitten.shikimori.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
@@ -11,8 +14,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberImagePainter
 import dagger.hilt.android.AndroidEntryPoint
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
@@ -50,7 +56,14 @@ fun ShowAnimes(list: List<Anime>) {
 @Composable
 fun AnimeCard(anime: Anime) {
     Card {
-        Text(text = anime.name, style = MaterialTheme.typography.h5)
+        Column {
+            Image(
+                painter = rememberImagePainter(data = anime.imgPreview),
+                contentDescription = "", // TODO
+                modifier = Modifier.size(128.dp)
+            )
+            Text(text = anime.name, style = MaterialTheme.typography.h5)
+        }
     }
 }
 
@@ -60,9 +73,9 @@ fun AnimesPreview() {
     ShikimoriTheme {
         ShowAnimes(
             list = listOf(
-                Anime(1, "Тетрадь Смерти"),
-                Anime(2, "Евангелион"),
-                Anime(3, "Атака Титанов")
+                Anime(1, "Тетрадь Смерти", ""),
+                Anime(2, "Евангелион", ""),
+                Anime(3, "Атака Титанов", "")
             )
         )
     }
