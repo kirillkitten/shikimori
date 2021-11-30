@@ -3,10 +3,13 @@ package kirillkitten.shikimori.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -43,13 +46,15 @@ class MainActivity : ComponentActivity() {
 fun FetchAnimes() {
     val viewModel: MainViewModel = viewModel()
     val animes = viewModel.animes.observeAsState()
-    animes.value?.let { ShowAnimes(it) }
+
+    // animes.value?.let { AnimeList(it) }
+    animes.value?.let { AnimeGrid(it) }
 }
 
 @Composable
-fun ShowAnimes(list: List<Anime>) {
+fun AnimeList(animes: List<Anime>) {
     LazyColumn {
-        items(list) { AnimeCard(anime = it) }
+        items(animes) { AnimeCard(anime = it) }
     }
 }
 
@@ -69,10 +74,44 @@ fun AnimeCard(anime: Anime) {
 
 @Preview(showBackground = true)
 @Composable
-fun AnimesPreview() {
+fun AnimeCardPreview() {
     ShikimoriTheme {
-        ShowAnimes(
-            list = listOf(
+        AnimeCard(Anime(3, "Атака Титанов", ""))
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AnimeListPreview() {
+    ShikimoriTheme {
+        AnimeList(
+            animes = listOf(
+                Anime(1, "Тетрадь Смерти", ""),
+                Anime(2, "Евангелион", ""),
+                Anime(3, "Атака Титанов", "")
+            )
+        )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun AnimeGrid(animes: List<Anime>) {
+    LazyVerticalGrid(
+        cells = GridCells.Adaptive(256.dp)
+    ) {
+        items(animes) { anime ->
+            AnimeCard(anime = anime)
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AnimeGridPreview() {
+    ShikimoriTheme {
+        AnimeGrid(
+            listOf(
                 Anime(1, "Тетрадь Смерти", ""),
                 Anime(2, "Евангелион", ""),
                 Anime(3, "Атака Титанов", "")
