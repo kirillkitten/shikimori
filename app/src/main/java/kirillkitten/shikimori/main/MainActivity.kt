@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
@@ -21,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -56,18 +58,26 @@ fun FetchAnimes() {
 @Composable
 fun AnimeCard(anime: Anime) {
     Card {
-        Column {
+        Column(modifier = Modifier.padding(8.dp)) {
             Image(
                 painter = rememberImagePainter(data = anime.imgPreview),
                 contentDescription = "", // TODO,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(256.dp)
+                    .height(200.dp)
             )
-            Text(text = anime.name, style = MaterialTheme.typography.body2, maxLines = 2)
+            Text(
+                text = anime.name,
+                modifier = Modifier.padding(top = 8.dp),
+                style = MaterialTheme.typography.body2,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -83,20 +93,10 @@ fun AnimeCard(anime: Anime) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun AnimeCardPreview() {
-    ShikimoriTheme {
-        AnimeCard(Anime(3, "Атака Титанов", ""))
-    }
-}
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AnimeGrid(animes: List<Anime>) {
-    LazyVerticalGrid(
-        cells = GridCells.Adaptive(128.dp)
-    ) {
+    LazyVerticalGrid(cells = GridCells.Adaptive(120.dp)) {
         items(animes) { anime ->
             AnimeCard(anime = anime)
         }
