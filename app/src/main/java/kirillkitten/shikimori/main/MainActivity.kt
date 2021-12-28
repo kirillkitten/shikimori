@@ -3,36 +3,20 @@ package kirillkitten.shikimori.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
+import androidx.activity.viewModels
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.rememberImagePainter
 import dagger.hilt.android.AndroidEntryPoint
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,74 +29,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
-@Composable
-fun FetchAnimes() {
-    val viewModel: MainViewModel = viewModel()
-    val animes = viewModel.animes.observeAsState()
-
-    animes.value?.let { AnimeGrid(it) }
-}
-
-@Composable
-fun AnimeCard(anime: Anime) {
-    Card {
-        Column(modifier = Modifier.padding(8.dp)) {
-            Image(
-                painter = rememberImagePainter(data = anime.imgPreview),
-                contentDescription = "", // TODO,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-            )
-            Text(
-                text = anime.name,
-                modifier = Modifier.padding(top = 8.dp),
-                style = MaterialTheme.typography.body2,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "TV Сериал",
-                    style = MaterialTheme.typography.caption
-                )
-                Text(
-                    text = "2015",
-                    style = MaterialTheme.typography.caption
-                )
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun AnimeGrid(animes: List<Anime>) {
-    LazyVerticalGrid(cells = GridCells.Adaptive(120.dp)) {
-        items(animes) { anime ->
-            AnimeCard(anime = anime)
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AnimeGridPreview() {
-    ShikimoriTheme {
-        AnimeGrid(
-            listOf(
-                Anime(1, "Тетрадь Смерти", ""),
-                Anime(2, "Евангелион", ""),
-                Anime(3, "Атака Титанов", "")
-            )
-        )
+    @Composable
+    fun FetchAnimes() {
+        val animes: List<Anime> by viewModel.animes.observeAsState(emptyList())
+        if (animes.isNotEmpty()) AnimeGrid(animes) else LoadingScreen()
     }
 }
