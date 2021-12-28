@@ -2,6 +2,7 @@ package kirillkitten.shikimori.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,27 +30,32 @@ import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 
 @Composable
 fun AnimeCard(anime: Anime) {
-    Column(modifier = Modifier.padding(8.dp)) {
+    Column(
+        modifier = Modifier
+            .clickable { /* TODO */ }
+            .padding(8.dp)
+    ) {
         Image(
-            painter = rememberImagePainter(data = anime.imgPreview),
+            painter = rememberImagePainter(
+                data = anime.imgPreview
+            ),
             contentDescription = "", // TODO,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
+                .height(240.dp)
         )
         Text(
             text = anime.name,
             modifier = Modifier.padding(top = 8.dp),
             style = MaterialTheme.typography.body2,
-            maxLines = 2,
+            maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-
-            )
+        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 8.dp),
+                .padding(top = 4.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
@@ -64,7 +70,7 @@ fun AnimeCard(anime: Anime) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 170, heightDp = 240)
 @Composable
 fun AnimeCardPreview() {
     ShikimoriTheme {
@@ -75,9 +81,9 @@ fun AnimeCardPreview() {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AnimeGrid(animes: List<Anime>) {
-    LazyVerticalGrid(cells = GridCells.Adaptive(120.dp)) {
+    LazyVerticalGrid(cells = GridCells.Adaptive(160.dp)) {
         items(animes) { anime ->
-            AnimeCard(anime = anime)
+            AnimeCard(anime)
         }
     }
 }
