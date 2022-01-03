@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -25,8 +25,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import kirillkitten.shikimori.ANIME_CARD_ASPECT_RATIO
+import kirillkitten.shikimori.ANIME_CARD_MIN_WIDTH
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
+import timber.log.Timber
 
 @Composable
 fun AnimeCard(anime: Anime) {
@@ -36,14 +39,12 @@ fun AnimeCard(anime: Anime) {
             .padding(8.dp)
     ) {
         Image(
-            painter = rememberImagePainter(
-                data = anime.imgPreview
-            ),
+            painter = rememberImagePainter(data = anime.imgPreview),
             contentDescription = "", // TODO,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(240.dp)
+                .aspectRatio(ANIME_CARD_ASPECT_RATIO)
         )
         Text(
             text = anime.name,
@@ -81,7 +82,7 @@ fun AnimeCardPreview() {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AnimeGrid(animes: List<Anime>) {
-    LazyVerticalGrid(cells = GridCells.Adaptive(160.dp)) {
+    LazyVerticalGrid(cells = GridCells.Adaptive(ANIME_CARD_MIN_WIDTH.dp)) {
         items(animes) { anime ->
             AnimeCard(anime)
         }
@@ -111,13 +112,11 @@ fun LoadingScreenPreview() {
     }
 }
 
-private val fakeAnimes by lazy {
-    listOf(
-        Anime(1, "Тетрадь Смерти", ""),
-        Anime(2, "Евангелион", ""),
-        Anime(3, "Токийский Гуль", ""),
-        Anime(4, "Этот глупый свин не понимает мечту девочки-зайки", ""),
-        Anime(5, "Когда плачут цикады", ""),
-        Anime(6, "Атака Титанов", "")
-    )
-}
+private val fakeAnimes = listOf(
+    Anime(1, "Тетрадь Смерти", ""),
+    Anime(2, "Евангелион", ""),
+    Anime(3, "Токийский Гуль", ""),
+    Anime(4, "Этот глупый свин не понимает мечту девочки-зайки", ""),
+    Anime(5, "Когда плачут цикады", ""),
+    Anime(6, "Атака Титанов", "")
+).also { Timber.d("Initializing fake animes") }
