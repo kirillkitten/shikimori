@@ -31,8 +31,21 @@ import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 import timber.log.Timber
 
+/**
+ * A [Composable] that displays a grid of [animes].
+ */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AnimeCard(anime: Anime) {
+fun AnimeGrid(animes: List<Anime>) {
+    LazyVerticalGrid(cells = GridCells.Adaptive(ANIME_CARD_MIN_WIDTH.dp)) {
+        items(animes) { anime ->
+            AnimeCard(anime)
+        }
+    }
+}
+
+@Composable
+private fun AnimeCard(anime: Anime) {
     Column(
         modifier = Modifier
             .clickable { /* TODO */ }
@@ -40,7 +53,7 @@ fun AnimeCard(anime: Anime) {
     ) {
         Image(
             painter = rememberImagePainter(data = anime.imgPreview),
-            contentDescription = "", // TODO,
+            contentDescription = "", // TODO
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
@@ -71,32 +84,9 @@ fun AnimeCard(anime: Anime) {
     }
 }
 
-@Preview(showBackground = true, widthDp = 170, heightDp = 240)
-@Composable
-fun AnimeCardPreview() {
-    ShikimoriTheme {
-        AnimeCard(fakeAnimes.first())
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun AnimeGrid(animes: List<Anime>) {
-    LazyVerticalGrid(cells = GridCells.Adaptive(ANIME_CARD_MIN_WIDTH.dp)) {
-        items(animes) { anime ->
-            AnimeCard(anime)
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AnimeGridPreview() {
-    ShikimoriTheme {
-        AnimeGrid(fakeAnimes)
-    }
-}
-
+/**
+ * [CircularProgressIndicator] that is displayed in the center of its parent.
+ */
 @Composable
 fun LoadingScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -104,9 +94,25 @@ fun LoadingScreen() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+private fun AnimeGridPreview() {
+    ShikimoriTheme {
+        AnimeGrid(fakeAnimes)
+    }
+}
+
+@Preview(showBackground = true, widthDp = 170, heightDp = 240)
+@Composable
+private fun AnimeCardPreview() {
+    ShikimoriTheme {
+        AnimeCard(fakeAnimes.first())
+    }
+}
+
 @Preview(showBackground = true, widthDp = 256, heightDp = 256)
 @Composable
-fun LoadingScreenPreview() {
+private fun LoadingScreenPreview() {
     ShikimoriTheme {
         LoadingScreen()
     }

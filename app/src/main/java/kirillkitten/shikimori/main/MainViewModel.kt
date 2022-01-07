@@ -10,9 +10,15 @@ import kirillkitten.shikimori.data.AnimeRepository
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * An [ViewModel] that holds an anime list.
+ */
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: AnimeRepository) : ViewModel() {
 
+    /**
+     * Animes [LiveData]. It fetches items when [MainViewModel] class is instantiated.
+     */
     val animes: LiveData<List<Anime>> = liveData {
         try {
             val response = repository.getAnimes(ANIME_LIST_MAX_SIZE)

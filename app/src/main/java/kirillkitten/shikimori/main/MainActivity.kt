@@ -15,11 +15,17 @@ import kirillkitten.shikimori.R
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 
+/**
+ * An [Activity][android.app.Activity] that displays an anime grid.
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+    /**
+     * @see androidx.activity.ComponentActivity.onCreate
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
