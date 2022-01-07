@@ -18,7 +18,7 @@ class ShikimoriApp : Application() {
 
     class CrashTree : Timber.Tree() {
         override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-//            TODO Implement logic
+//            TODO Implement CrashTree
 //            if (priority < Log.INFO) return
 //            FakeCrashLibrary.log(priority, tag, message);
 //            if (t != null) {
