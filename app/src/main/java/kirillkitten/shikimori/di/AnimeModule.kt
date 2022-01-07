@@ -1,6 +1,5 @@
 package kirillkitten.shikimori.di
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,15 +12,13 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class AnimeModule {
+object AnimeModule {
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindAnimeRepository(repository: AnimeRepositoryImpl): AnimeRepository
+    fun provideAnimeRepository(animeApi: AnimeApi): AnimeRepository = AnimeRepositoryImpl(animeApi)
 
-    companion object {
-        @Provides
-        @Singleton
-        fun provideAnimeAPI(): AnimeApi = AnimeApiService
-    }
+    @Provides
+    @Singleton
+    fun provideAnimeAPI(): AnimeApi = AnimeApiService
 }
