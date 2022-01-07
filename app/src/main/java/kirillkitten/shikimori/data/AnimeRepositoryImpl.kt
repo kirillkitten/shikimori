@@ -7,7 +7,7 @@ import javax.inject.Inject
 class AnimeRepositoryImpl @Inject constructor(private val api: AnimeApi) :
     AnimeRepository {
 
-    override suspend fun getAnimes(limit: Int): List<Anime> {
-        return api.getAnimes(limit).map(RemoteAnime::toDomainModel)
+    override suspend fun getAnimes(limit: Int, order: Anime.Order): List<Anime> {
+        return api.getAnimes(limit, order.remoteName).map(RemoteAnime::toDomainModel)
     }
 }

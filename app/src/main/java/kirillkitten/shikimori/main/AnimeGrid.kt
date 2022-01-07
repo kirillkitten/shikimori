@@ -30,6 +30,7 @@ import kirillkitten.shikimori.ANIME_CARD_MIN_WIDTH
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 import timber.log.Timber
+import java.time.LocalDate
 
 /**
  * A [Composable] that displays a grid of [animes].
@@ -48,12 +49,12 @@ fun AnimeGrid(animes: List<Anime>) {
 private fun AnimeCard(anime: Anime) {
     Column(
         modifier = Modifier
-            .clickable { /* TODO */ }
+            .clickable { /* TODO Open anime item */ }
             .padding(8.dp)
     ) {
         Image(
             painter = rememberImagePainter(data = anime.imgPreview),
-            contentDescription = "", // TODO
+            contentDescription = "", // TODO add content description
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
@@ -73,11 +74,11 @@ private fun AnimeCard(anime: Anime) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "TV Сериал",
+                text = anime.format.toString(), // TODO Extract format types from resources
                 style = MaterialTheme.typography.caption
             )
             Text(
-                text = "2015",
+                text = anime.airDate.year.toString(),
                 style = MaterialTheme.typography.caption
             )
         }
@@ -119,10 +120,46 @@ private fun LoadingScreenPreview() {
 }
 
 private val fakeAnimes = listOf(
-    Anime(1, "Тетрадь Смерти", ""),
-    Anime(2, "Евангелион", ""),
-    Anime(3, "Токийский Гуль", ""),
-    Anime(4, "Этот глупый свин не понимает мечту девочки-зайки", ""),
-    Anime(5, "Когда плачут цикады", ""),
-    Anime(6, "Атака Титанов", "")
-).also { Timber.d("Initializing fake animes") }
+    Anime(
+        id = 1,
+        name = "Тетрадь Смерти",
+        imgPreview = "",
+        format = Anime.Format.TV,
+        airDate = LocalDate.parse("2017-01-01")
+    ),
+    Anime(
+        id = 2,
+        name = "Евангелион",
+        imgPreview = "",
+        format = Anime.Format.OVA,
+        airDate = LocalDate.parse("2020-01-01")
+    ),
+    Anime(
+        id = 3,
+        name = "Токийский Гуль",
+        imgPreview = "",
+        format = Anime.Format.MOVIE,
+        airDate = LocalDate.parse("1996-01-01")
+    ),
+    Anime(
+        id = 4,
+        name = "Этот глупый свин не понимает мечту девочки-зайки",
+        imgPreview = "",
+        format = Anime.Format.TV,
+        airDate = LocalDate.parse("2015-01-01")
+    ),
+    Anime(
+        id = 5,
+        name = "Когда плачут цикады",
+        imgPreview = "",
+        format = Anime.Format.TV,
+        airDate = LocalDate.parse("2003-01-01")
+    ),
+    Anime(
+        id = 6,
+        name = "Атака Титанов",
+        imgPreview = "",
+        format = Anime.Format.TV,
+        airDate = LocalDate.parse("1999-01-01")
+    )
+).also { Timber.d("Initializing fake animes", Anime.Format.OVA, LocalDate.parse("2017-01-01")) }
