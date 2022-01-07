@@ -19,7 +19,7 @@ import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 import timber.log.Timber
 
 /**
- * An [Activity][android.app.Activity] that displays an anime grid.
+ * [Activity][android.app.Activity] that displays an anime grid.
  */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

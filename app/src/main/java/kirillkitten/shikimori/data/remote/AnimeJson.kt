@@ -4,15 +4,15 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * A model that represents an anime from network.
+ * Model that represents an anime from remote network.
  */
 @JsonClass(generateAdapter = true)
-data class RemoteAnime(
+data class AnimeJson(
     val id: Int,
     val name: String,
     @Json(name = "image") val images: RemoteAnimeImages,
-    val kind: String,
-    @Json(name = "aired_on") val airedOn: String,
+    @Json(name = "kind") val format: String,
+    @Json(name = "aired_on") val airDate: String,
 )
 
 @JsonClass(generateAdapter = true)

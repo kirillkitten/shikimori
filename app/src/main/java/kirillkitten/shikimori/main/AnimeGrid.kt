@@ -29,7 +29,7 @@ import timber.log.Timber
 import java.time.LocalDate
 
 /**
- * A [Composable] that displays a grid of [animes].
+ * Displays a grid of [animes].
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

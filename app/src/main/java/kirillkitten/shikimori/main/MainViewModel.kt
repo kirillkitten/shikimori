@@ -17,7 +17,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 /**
- * An [ViewModel] that holds an anime list.
+ * [ViewModel] that holds an anime list.
  */
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: AnimeRepository) : ViewModel() {
