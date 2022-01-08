@@ -10,12 +10,15 @@ import com.squareup.moshi.JsonClass
 data class AnimeJson(
     val id: Int,
     val name: String,
-    @Json(name = "image") val images: RemoteAnimeImages,
+    @Json(name = "image") val images: AnimeJsonImages,
     @Json(name = "kind") val format: String,
     @Json(name = "aired_on") val airDate: String,
 )
 
+/**
+ * Model containing a set of image urls.
+ */
 @JsonClass(generateAdapter = true)
-data class RemoteAnimeImages(
+data class AnimeJsonImages(
     val preview: String
 )

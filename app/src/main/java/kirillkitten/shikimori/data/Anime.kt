@@ -31,7 +31,7 @@ data class Anime(
 }
 
 /**
- * Maps [AnimeJson] anime to its [domain][Anime] model.
+ * Maps [AnimeJson] to its [domain][Anime] model.
  */
 fun AnimeJson.toDomainModel(): Anime = Anime(
     id = id,
@@ -56,7 +56,7 @@ private fun fromJson(json: String): Anime.Format = when (json) {
 }
 
 /**
- * [Anime.Order] name that is acceptable for network calls.
+ * Maps [Anime.Order] to [String] that is acceptable for network calls.
  * @see AnimeJson
  * @see kirillkitten.shikimori.data.remote.AnimeApi
  */

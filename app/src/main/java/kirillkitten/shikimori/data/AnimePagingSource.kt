@@ -1,29 +1,23 @@
-package kirillkitten.shikimori.data.paging
+package kirillkitten.shikimori.data
 
+import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kirillkitten.shikimori.ANIME_PAGE_MAX_SIZE
-import kirillkitten.shikimori.data.Anime
-import kirillkitten.shikimori.data.AnimeRepository
+import kirillkitten.shikimori.ANIME_PAGE_SIZE
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
- * Source of pageable [Anime] data. [repository] is used for serial data requests.
+ * Source of pageable [Anime] data. [repository] is used to query serial data requests.
  * @see PagingSource
  */
-class AnimePagingSource(
+class AnimePagingSource @Inject constructor(
     private val repository: AnimeRepository,
     // TODO Add query params
 ) : PagingSource<Int, Anime>() {
 
-    private val pageSize = ANIME_PAGE_MAX_SIZE
+    private val pageSize = ANIME_PAGE_SIZE
 
-    /**
-     * Attempt to load the next page. Returns either [LoadResult.Page][PagingSource.LoadResult.Page]
-     * when the load succeed or [LoadResult.Error][PagingSource.LoadResult.Error] otherwise.
-     * @see PagingSource.load
-     * @see PagingSource.LoadResult
-     */
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Anime> {
         val pageNumber = params.key ?: 1
         Timber.i("Try to load $pageNumber page")
@@ -40,10 +34,6 @@ class AnimePagingSource(
         }
     }
 
-    /**
-     * Calculate the page key of the closest page to [state].
-     * @see PagingSource.getRefreshKey
-     */
     override fun getRefreshKey(state: PagingState<Int, Anime>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.let { (_, prevKey, nextKey) ->
@@ -52,3 +42,8 @@ class AnimePagingSource(
         }
     }
 }
+
+/**
+ * Default anime [PagingConfig].
+ */
+val AnimePagingConfig: PagingConfig = PagingConfig(pageSize = ANIME_PAGE_SIZE)

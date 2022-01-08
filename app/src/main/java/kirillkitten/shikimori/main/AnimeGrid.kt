@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyGridScope
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -32,22 +31,7 @@ import timber.log.Timber
 import java.time.LocalDate
 
 /**
- * Displays a grid of [animes].
- */
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun AnimeGrid(animes: List<Anime>) {
-    Timber.i("AnimeGrid is called")
-    Timber.i("Anime list size - ${animes.size}")
-    LazyVerticalGrid(cells = GridCells.Adaptive(ANIME_CARD_MIN_WIDTH.dp)) {
-        items(animes) { anime ->
-            AnimeCard(anime)
-        }
-    }
-}
-
-/**
- * Displays a grid of [animes].
+ * Displays an anime grid mapped to [pagingItems].
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -57,16 +41,6 @@ fun AnimeGrid(pagingItems: LazyPagingItems<Anime>) {
         items(pagingItems) { anime ->
             if (anime != null) AnimeCard(anime) // TODO Show a placeholder when the anime is null
         }
-    }
-}
-
-@ExperimentalFoundationApi
-private fun <T : Any> LazyGridScope.items(
-    items: LazyPagingItems<T>,
-    itemContent: @Composable LazyItemScope.(value: T?) -> Unit
-) {
-    items(items.itemCount) { index ->
-        itemContent(items[index])
     }
 }
 
@@ -110,69 +84,31 @@ private fun AnimeCard(anime: Anime) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun AnimeGridPreview() {
-    Timber.i("AnimeGridPreview is called")
-    ShikimoriTheme {
-        AnimeGrid(fakeAnimes)
+/**
+ * @see androidx.paging.compose.items
+ */
+@ExperimentalFoundationApi
+private fun <T : Any> LazyGridScope.items(
+    items: LazyPagingItems<T>,
+    itemContent: @Composable LazyItemScope.(value: T?) -> Unit
+) {
+    items(items.itemCount) { index ->
+        itemContent(items[index])
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun AnimeCardPreview() {
-    Timber.i("AnimeCardPreview is called")
     ShikimoriTheme {
-        AnimeCard(fakeAnimes.first())
-    }
-}
-
-private val fakeAnimes: List<Anime>
-    get() {
-        Timber.i("Initializing fake animes")
-        return listOf(
+        AnimeCard(
             Anime(
                 id = 1,
                 name = "Тетрадь Смерти",
                 imgPreview = "",
                 format = Anime.Format.TV,
                 airDate = LocalDate.parse("2017-01-01")
-            ),
-            Anime(
-                id = 2,
-                name = "Евангелион",
-                imgPreview = "",
-                format = Anime.Format.OVA,
-                airDate = LocalDate.parse("2020-01-01")
-            ),
-            Anime(
-                id = 3,
-                name = "Токийский Гуль",
-                imgPreview = "",
-                format = Anime.Format.MOVIE,
-                airDate = LocalDate.parse("1996-01-01")
-            ),
-            Anime(
-                id = 4,
-                name = "Этот глупый свин не понимает мечту девочки-зайки",
-                imgPreview = "",
-                format = Anime.Format.TV,
-                airDate = LocalDate.parse("2015-01-01")
-            ),
-            Anime(
-                id = 5,
-                name = "Когда плачут цикады",
-                imgPreview = "",
-                format = Anime.Format.TV,
-                airDate = LocalDate.parse("2003-01-01")
-            ),
-            Anime(
-                id = 6,
-                name = "Атака Титанов",
-                imgPreview = "",
-                format = Anime.Format.TV,
-                airDate = LocalDate.parse("1999-01-01")
             )
         )
     }
+}
