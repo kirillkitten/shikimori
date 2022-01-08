@@ -13,6 +13,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.paging.compose.collectAsLazyPagingItems
 import dagger.hilt.android.AndroidEntryPoint
 import kirillkitten.shikimori.R
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
@@ -55,11 +56,14 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun AnimeGridScreenContent() {
         Timber.i("AnimeGridScreenContent is called")
-        if (viewModel.isLoading) {
-            LoadingScreen()
-        } else {
-            AnimeGrid(viewModel.animes)
-        }
+        // if (viewModel.isLoading) {
+        //     LoadingScreen()
+        // } else {
+        //     AnimeGrid(viewModel.animes)
+        // }
+
+        val lazyPagingItems = viewModel.animePagingFlow.collectAsLazyPagingItems()
+        AnimeGrid(pagingItems = lazyPagingItems)
     }
 
     @Composable

@@ -8,10 +8,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kirillkitten.shikimori.ANIME_LIST_MAX_SIZE
+import kirillkitten.shikimori.ANIME_PAGE_MAX_SIZE
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.data.AnimeRepository
+import kirillkitten.shikimori.data.paging.AnimePagingSource
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -41,6 +45,12 @@ class MainViewModel @Inject constructor(private val repository: AnimeRepository)
     var isLoading: Boolean by mutableStateOf(false)
         private set
 
+    val animePagingFlow = Pager(
+        PagingConfig(pageSize = ANIME_PAGE_MAX_SIZE)
+    ) {
+        AnimePagingSource(repository)
+    }.flow.cachedIn(viewModelScope)
+
     init {
         fetchAnimes()
     }
@@ -52,7 +62,7 @@ class MainViewModel @Inject constructor(private val repository: AnimeRepository)
         viewModelScope.launch {
             try {
                 Timber.i("Request animes from Repository")
-                val response = repository.getAnimes(ANIME_LIST_MAX_SIZE)
+                val response = repository.getAnimes(ANIME_PAGE_MAX_SIZE)
                 Timber.i("Received ${response.size} animes")
                 Timber.i("First received anime = ${response.firstOrNull()}")
                 animes.addAll(response)

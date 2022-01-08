@@ -2,7 +2,7 @@ package kirillkitten.shikimori.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kirillkitten.shikimori.ANIME_LIST_MAX_SIZE
+import kirillkitten.shikimori.ANIME_PAGE_MAX_SIZE
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.data.AnimeRepository
 import timber.log.Timber
@@ -11,9 +11,12 @@ import timber.log.Timber
  * Source of pageable [Anime] data. [repository] is used for serial data requests.
  * @see PagingSource
  */
-class AnimePagingSource(private val repository: AnimeRepository) : PagingSource<Int, Anime>() {
+class AnimePagingSource(
+    private val repository: AnimeRepository,
+    // TODO Add query params
+) : PagingSource<Int, Anime>() {
 
-    private val pageSize = ANIME_LIST_MAX_SIZE
+    private val pageSize = ANIME_PAGE_MAX_SIZE
 
     /**
      * Attempt to load the next page. Returns either [LoadResult.Page][PagingSource.LoadResult.Page]

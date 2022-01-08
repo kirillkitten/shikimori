@@ -1,6 +1,6 @@
 package kirillkitten.shikimori.data
 
-import kirillkitten.shikimori.ANIME_LIST_MAX_SIZE
+import kirillkitten.shikimori.ANIME_PAGE_MAX_SIZE
 import kirillkitten.shikimori.data.remote.AnimeApi
 import kirillkitten.shikimori.data.remote.AnimeJson
 import javax.inject.Inject
@@ -8,7 +8,7 @@ import javax.inject.Inject
 interface AnimeRepository {
     suspend fun getAnimes(
         page: Int = 1,
-        limit: Int = ANIME_LIST_MAX_SIZE,
+        limit: Int = ANIME_PAGE_MAX_SIZE,
         order: Anime.Order = Anime.Order.RATING
     ): List<Anime>
 }

@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyGridScope
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
@@ -20,6 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import coil.compose.rememberImagePainter
 import kirillkitten.shikimori.ANIME_CARD_ASPECT_RATIO
 import kirillkitten.shikimori.ANIME_CARD_MIN_WIDTH
@@ -40,6 +43,30 @@ fun AnimeGrid(animes: List<Anime>) {
         items(animes) { anime ->
             AnimeCard(anime)
         }
+    }
+}
+
+/**
+ * Displays a grid of [animes].
+ */
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun AnimeGrid(pagingItems: LazyPagingItems<Anime>) {
+    Timber.i("AnimeGrid is called")
+    LazyVerticalGrid(cells = GridCells.Adaptive(ANIME_CARD_MIN_WIDTH.dp)) {
+        items(pagingItems) { anime ->
+            if (anime != null) AnimeCard(anime) // TODO Show a placeholder when the anime is null
+        }
+    }
+}
+
+@ExperimentalFoundationApi
+private fun <T : Any> LazyGridScope.items(
+    items: LazyPagingItems<T>,
+    itemContent: @Composable LazyItemScope.(value: T?) -> Unit
+) {
+    items(items.itemCount) { index ->
+        itemContent(items[index])
     }
 }
 
