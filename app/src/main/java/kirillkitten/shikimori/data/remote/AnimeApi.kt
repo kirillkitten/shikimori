@@ -13,6 +13,7 @@ interface AnimeApi {
 
     @GET("api/animes")
     suspend fun getAnimes(
+        @Query("page") page: Int,
         @Query("limit") limit: Int,
         @Query("order") order: String
     ): List<AnimeJson>

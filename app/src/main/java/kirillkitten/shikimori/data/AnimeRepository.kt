@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 interface AnimeRepository {
     suspend fun getAnimes(
+        page: Int = 1,
         limit: Int = ANIME_LIST_MAX_SIZE,
         order: Anime.Order = Anime.Order.RATING
     ): List<Anime>
@@ -15,7 +16,7 @@ interface AnimeRepository {
 class AnimeRepositoryImpl @Inject constructor(private val api: AnimeApi) :
     AnimeRepository {
 
-    override suspend fun getAnimes(limit: Int, order: Anime.Order): List<Anime> {
-        return api.getAnimes(limit, order.jsonName).map(AnimeJson::toDomainModel)
+    override suspend fun getAnimes(page: Int, limit: Int, order: Anime.Order): List<Anime> {
+        return api.getAnimes(page, limit, order.jsonName).map(AnimeJson::toDomainModel)
     }
 }
