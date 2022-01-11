@@ -1,16 +1,11 @@
 package kirillkitten.shikimori.di
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kirillkitten.shikimori.ANIME_PAGE_SIZE
 import kirillkitten.shikimori.BASE_URL
-import kirillkitten.shikimori.data.Anime
-import kirillkitten.shikimori.data.AnimePagingSource
 import kirillkitten.shikimori.data.AnimeRepository
 import kirillkitten.shikimori.data.AnimeRepositoryImpl
 import kirillkitten.shikimori.data.remote.AnimeApi
@@ -21,7 +16,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class AnimeModule {
+abstract class AnimeRepositoryModule {
 
     @Suppress("unused")
     @Singleton
@@ -29,15 +24,6 @@ abstract class AnimeModule {
     abstract fun bindAnimeRepository(repository: AnimeRepositoryImpl): AnimeRepository
 
     companion object {
-
-        @Singleton
-        @Provides
-        fun providePager(
-            pagingConfig: PagingConfig,
-            repository: AnimeRepository
-        ): Pager<Int, Anime> = Pager(pagingConfig) {
-            AnimePagingSource(repository)
-        }
 
         @Singleton
         @Provides
@@ -49,8 +35,5 @@ abstract class AnimeModule {
 
         @Provides
         fun provideConverterFactory(): Converter.Factory = MoshiConverterFactory.create()
-
-        @Provides
-        fun providePagingConfig(): PagingConfig = PagingConfig(pageSize = ANIME_PAGE_SIZE)
     }
 }
