@@ -1,10 +1,9 @@
 package kirillkitten.shikimori.data.remote
 
-import kirillkitten.shikimori.BASE_URL
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+
+const val BASE_URL: String = "https://shikimori.one"
 
 /**
  * Network function set for [kirillkitten.shikimori.data.Anime] information.
@@ -24,12 +23,3 @@ interface AnimeApi {
         @Query("order") order: String
     ): List<AnimeJson>
 }
-
-/**
- * [Retrofit] implementation of the [AnimeApi] interface.
- */
-val AnimeApiService: AnimeApi = Retrofit.Builder()
-    .baseUrl(BASE_URL)
-    .addConverterFactory(MoshiConverterFactory.create())
-    .build()
-    .create(AnimeApi::class.java)

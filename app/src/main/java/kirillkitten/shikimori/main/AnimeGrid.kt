@@ -23,12 +23,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.rememberImagePainter
-import kirillkitten.shikimori.ANIME_CARD_ASPECT_RATIO
-import kirillkitten.shikimori.ANIME_CARD_MIN_WIDTH
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 import timber.log.Timber
 import java.time.LocalDate
+
+private const val ANIME_CARD_MIN_WIDTH: Int = 160
+private const val ANIME_CARD_ASPECT_RATIO: Float = 225f / 318f
 
 /**
  * Displays an anime grid mapped to [pagingItems].

@@ -5,10 +5,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kirillkitten.shikimori.BASE_URL
 import kirillkitten.shikimori.data.AnimeRepository
 import kirillkitten.shikimori.data.AnimeRepositoryImpl
 import kirillkitten.shikimori.data.remote.AnimeApi
+import kirillkitten.shikimori.data.remote.BASE_URL
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -25,6 +25,9 @@ abstract class AnimeRepositoryModule {
 
     companion object {
 
+        /**
+         * [Retrofit] implementation of the [AnimeApi] interface.
+         */
         @Singleton
         @Provides
         fun provideAnimeAPI(converterFactory: Converter.Factory): AnimeApi = Retrofit.Builder()

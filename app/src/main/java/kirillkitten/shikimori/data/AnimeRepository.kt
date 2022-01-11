@@ -1,10 +1,11 @@
 package kirillkitten.shikimori.data
 
 import androidx.annotation.IntRange
-import kirillkitten.shikimori.ANIME_PAGE_SIZE
 import kirillkitten.shikimori.data.remote.AnimeApi
 import kirillkitten.shikimori.data.remote.AnimeJson
 import javax.inject.Inject
+
+const val ANIME_PAGE_SIZE: Int = 50
 
 /**
  * Repository that is responsible to provide [Anime] related data.

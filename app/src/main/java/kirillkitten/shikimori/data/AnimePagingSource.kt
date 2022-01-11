@@ -1,9 +1,7 @@
 package kirillkitten.shikimori.data
 
-import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kirillkitten.shikimori.ANIME_PAGE_SIZE
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -42,8 +40,3 @@ class AnimePagingSource @Inject constructor(
         }
     }
 }
-
-/**
- * Default anime [PagingConfig].
- */
-val AnimePagingConfig: PagingConfig = PagingConfig(pageSize = ANIME_PAGE_SIZE)

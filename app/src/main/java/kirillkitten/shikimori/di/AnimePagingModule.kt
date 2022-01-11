@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.scopes.ActivityRetainedScoped
-import kirillkitten.shikimori.ANIME_PAGE_SIZE
+import kirillkitten.shikimori.data.ANIME_PAGE_SIZE
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.data.AnimePagingSource
 import kirillkitten.shikimori.data.AnimeRepository
@@ -25,6 +25,9 @@ object AnimePagingModule {
         AnimePagingSource(repository)
     }
 
+    /**
+     * Default anime [PagingConfig].
+     */
     @Provides
     fun providePagingConfig(): PagingConfig = PagingConfig(pageSize = ANIME_PAGE_SIZE)
 }
