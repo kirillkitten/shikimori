@@ -1,7 +1,6 @@
 package kirillkitten.shikimori.data
 
 import kirillkitten.shikimori.data.remote.AnimeJson
-import kirillkitten.shikimori.data.remote.BASE_URL
 import java.time.LocalDate
 
 /**
@@ -11,17 +10,17 @@ data class Anime(
     val id: Int,
     val name: String,
     val imgPreview: String,
-    val format: Format,
     val airDate: LocalDate,
+    val format: Format,
+    val score: Float,
+    val status: Status,
 ) {
 
     /**
      * Anime release format.
      */
     enum class Format(
-        /**
-         * [String] name that is used for network and database queries.
-         */
+        /** Name that is used for network and database queries. */
         val jsonName: String
     ) {
         TV("tv"),
@@ -35,7 +34,7 @@ data class Anime(
             /**
              * Maps [json] name to [Format] constant.
              * Throws [IllegalArgumentException] if there is no suitable enum.
-             * @param json must be one of: "tv", "movie", "ova", "ona", "special", "music"
+             * @param json must be one of: "tv", "movie", "ova", "ona", "special" or "music"
              */
             fun fromJson(json: String): Format = values()
                 .find { it.jsonName == json }
@@ -44,12 +43,33 @@ data class Anime(
     }
 
     /**
+     * Anime release status.
+     */
+    enum class Status(
+        /** Name that is used for network and database queries. */
+        val jsonName: String
+    ) {
+        ANNOUNCED("anons"),
+        ONGOING("ongoing"),
+        RELEASED("released");
+
+        companion object {
+            /**
+             * Maps [json] name to [Status] constant.
+             * Throws [IllegalArgumentException] if there is no suitable enum.
+             * @param json must be one of: "anons", "ongoing" or "released"
+             */
+            fun fromJson(json: String): Status = values()
+                .find { it.jsonName == json }
+                ?: throw IllegalArgumentException("No Anime.Status with given name - $json")
+        }
+    }
+
+    /**
      * Anime sorting order.
      */
     enum class Order(
-        /**
-         * [String] name that is used for network and database queries.
-         */
+        /** Name that is used for network and database queries. */
         val jsonName: String
     ) {
         ID("id"),
@@ -62,7 +82,7 @@ data class Anime(
             /**
              * Maps [json] name to [Order] constant.
              * Throws [IllegalArgumentException] if there is no suitable enum.
-             * @param json must be one of: "id", "ranked", "popularity", "name", "aired_on"
+             * @param json must be one of: "id", "ranked", "popularity", "name" or "aired_on"
              */
             fun fromJson(json: String): Order = values()
                 .find { it.jsonName == json }
@@ -77,7 +97,9 @@ data class Anime(
 fun AnimeJson.toDomainModel(): Anime = Anime(
     id = id,
     name = name,
-    imgPreview = BASE_URL + images.preview,
-    format = Anime.Format.fromJson(format),
+    imgPreview = images.previewUrl,
     airDate = LocalDate.parse(airDate),
+    format = Anime.Format.fromJson(format),
+    score = score,
+    status = Anime.Status.fromJson(status)
 )

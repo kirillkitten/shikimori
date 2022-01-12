@@ -107,8 +107,10 @@ private fun AnimeCardPreview() {
                 id = 1,
                 name = "Тетрадь Смерти",
                 imgPreview = "",
+                airDate = LocalDate.parse("2017-01-01"),
                 format = Anime.Format.TV,
-                airDate = LocalDate.parse("2017-01-01")
+                score = 8.0f,
+                status = Anime.Status.RELEASED,
             )
         )
     }
