@@ -1,16 +1,19 @@
-package kirillkitten.shikimori.data
+package kirillkitten.shikimori.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import kirillkitten.shikimori.data.ANIME_PAGE_SIZE
+import kirillkitten.shikimori.data.Anime
+import kirillkitten.shikimori.data.AnimeRepository
+import kirillkitten.shikimori.data.SearchQuery
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Source of pageable [Anime] data.
  * [repository] is used to serial data requests with specified [query].
  * @see PagingSource
  */
-class AnimePagingSource @Inject constructor(
+class AnimePagingSource(
     private val repository: AnimeRepository,
     private val query: SearchQuery
 ) : PagingSource<Int, Anime>() {
