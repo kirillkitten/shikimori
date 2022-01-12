@@ -36,20 +36,21 @@ private const val ANIME_CARD_ASPECT_RATIO: Float = 225f / 318f
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AnimeGrid(pagingItems: LazyPagingItems<Anime>) {
+fun AnimeGrid(pagingItems: LazyPagingItems<Anime>, onClick: (Anime) -> Unit) {
     Timber.i("AnimeGrid is called")
     LazyVerticalGrid(cells = GridCells.Adaptive(ANIME_CARD_MIN_WIDTH.dp)) {
         items(pagingItems) { anime ->
-            if (anime != null) AnimeCard(anime) // TODO Show a placeholder when the anime is null
+            // TODO Show a placeholder when the anime is null
+            if (anime != null) AnimeCard(anime, onClick)
         }
     }
 }
 
 @Composable
-private fun AnimeCard(anime: Anime) {
+private fun AnimeCard(anime: Anime, onClick: (Anime) -> Unit) {
     Column(
         modifier = Modifier
-            .clickable { /* TODO Open anime item */ }
+            .clickable { onClick(anime) }
             .padding(horizontal = 8.dp, vertical = 12.dp)
     ) {
         Image(
@@ -112,6 +113,6 @@ private fun AnimeCardPreview() {
                 score = 8.0f,
                 status = Anime.Status.RELEASED,
             )
-        )
+        ) {}
     }
 }

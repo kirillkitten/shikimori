@@ -64,31 +64,6 @@ data class Anime(
                 ?: throw IllegalArgumentException("No Anime.Status with given name - $json")
         }
     }
-
-    /**
-     * Anime sorting order.
-     */
-    enum class Order(
-        /** Name that is used for network and database queries. */
-        val jsonName: String
-    ) {
-        ID("id"),
-        RATING("ranked"),
-        POPULARITY("popularity"),
-        NAME("name"),
-        AIR_DATE("aired_on");
-
-        companion object {
-            /**
-             * Maps [json] name to [Order] constant.
-             * Throws [IllegalArgumentException] if there is no suitable enum.
-             * @param json must be one of: "id", "ranked", "popularity", "name" or "aired_on"
-             */
-            fun fromJson(json: String): Order = values()
-                .find { it.jsonName == json }
-                ?: throw IllegalArgumentException("No Anime.Order with given name - $json")
-        }
-    }
 }
 
 /**

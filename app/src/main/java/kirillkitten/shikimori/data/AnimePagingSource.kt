@@ -6,24 +6,23 @@ import timber.log.Timber
 import javax.inject.Inject
 
 /**
- * Source of pageable [Anime] data. [repository] is used to query serial data requests.
+ * Source of pageable [Anime] data.
+ * [repository] is used to serial data requests with specified [query].
  * @see PagingSource
  */
 class AnimePagingSource @Inject constructor(
     private val repository: AnimeRepository,
-    // TODO Add query params
+    private val query: SearchQuery
 ) : PagingSource<Int, Anime>() {
-
-    private val pageSize = ANIME_PAGE_SIZE
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Anime> {
         val pageNumber = params.key ?: 1
         Timber.i("Try to load $pageNumber page")
         return try {
-            val animes = repository.getAnimes(page = pageNumber, limit = pageSize)
+            val animes = repository.getAnimes(query = query, pageNumber = pageNumber)
 
             // The next page exists only if the current page contains items at least the limit.
-            val nextKey = (pageNumber + 1).takeIf { animes.size >= pageSize }
+            val nextKey = (pageNumber + 1).takeIf { animes.size >= ANIME_PAGE_SIZE }
 
             LoadResult.Page(data = animes, prevKey = null, nextKey = nextKey)
         } catch (exception: Exception) {

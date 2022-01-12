@@ -43,7 +43,9 @@ class MainActivity : ComponentActivity() {
             },
             content = {
                 val animes = viewModel.animePagingFlow.collectAsLazyPagingItems()
-                AnimeGrid(pagingItems = animes)
+                AnimeGrid(pagingItems = animes) {
+                    // TODO Implement anime card click
+                }
             }
         )
     }
