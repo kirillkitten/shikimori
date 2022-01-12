@@ -13,8 +13,8 @@ interface AnimeApi {
     /**
      * Fetch anime list with given parameters.
      * Number of [page] must be an [Int] between 1 and 100000 (inclusive).
-     * [limit] must be from 1 to 50 (inclusive).
-     * [order] must be one of: "id", "ranked", "popularity", "name" or "aired_on".
+     * [limit] must be from 1 to 50 (inclusive)
+     * [order] must be one of: "id", "ranked", "popularity", "name", "aired_on"
      */
     @GET("api/animes")
     suspend fun getAnimes(
