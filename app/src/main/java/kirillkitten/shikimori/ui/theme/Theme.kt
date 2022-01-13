@@ -5,12 +5,19 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val LightColorPalette = lightColors(
     primary = Gray800,
     primaryVariant = Gray900,
     secondary = Azure700,
-    secondaryVariant = Azure500
+    secondaryVariant = Azure500,
+    background = Gray50,
+    surface = Gray50,
+    onPrimary = Color.White,
+    onSecondary = Color.White,
+    onBackground = Gray900,
+    onSurface = Gray900,
 )
 
 private val DarkColorPalette = darkColors(
@@ -20,7 +27,7 @@ private val DarkColorPalette = darkColors(
 )
 
 @Composable
-fun ShikimoriTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun ShikimoriTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
@@ -34,3 +41,9 @@ fun ShikimoriTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composa
         content = content
     )
 }
+
+/**
+ * Provides border stroke color depending on light or dark theme.
+ */
+@Composable
+fun outlineColor(): Color = if (!isSystemInDarkTheme()) Azure500 else Azure600

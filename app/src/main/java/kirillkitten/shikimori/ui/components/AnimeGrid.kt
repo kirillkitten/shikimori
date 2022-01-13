@@ -1,4 +1,4 @@
-package kirillkitten.shikimori.main
+package kirillkitten.shikimori.ui.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -36,9 +36,14 @@ private const val ANIME_CARD_ASPECT_RATIO: Float = 225f / 318f
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AnimeGrid(pagingItems: LazyPagingItems<Anime>, onClick: (Anime) -> Unit) {
+fun AnimeGrid(
+    pagingItems: LazyPagingItems<Anime>,
+    onClick: (Anime) -> Unit,
+    modifier: Modifier
+) {
+    // TODO Implement generic version of the grid with paging items
     Timber.i("AnimeGrid is called")
-    LazyVerticalGrid(cells = GridCells.Adaptive(ANIME_CARD_MIN_WIDTH.dp)) {
+    LazyVerticalGrid(cells = GridCells.Adaptive(ANIME_CARD_MIN_WIDTH.dp), modifier = modifier) {
         items(pagingItems) { anime ->
             // TODO Show a placeholder when the anime is null
             if (anime != null) AnimeCard(anime, onClick)
@@ -48,6 +53,7 @@ fun AnimeGrid(pagingItems: LazyPagingItems<Anime>, onClick: (Anime) -> Unit) {
 
 @Composable
 private fun AnimeCard(anime: Anime, onClick: (Anime) -> Unit) {
+    // TODO Use Surface instead of Column
     Column(
         modifier = Modifier
             .clickable { onClick(anime) }

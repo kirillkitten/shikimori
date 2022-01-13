@@ -1,4 +1,4 @@
-package kirillkitten.shikimori.main
+package kirillkitten.shikimori.ui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
