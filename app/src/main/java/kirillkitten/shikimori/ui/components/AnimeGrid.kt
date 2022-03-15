@@ -39,7 +39,7 @@ private const val ANIME_CARD_ASPECT_RATIO: Float = 225f / 318f
 fun AnimeGrid(
     pagingItems: LazyPagingItems<Anime>,
     onClick: (Anime) -> Unit,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     // TODO Implement generic version of the grid with paging items
     Timber.i("AnimeGrid is called")
@@ -122,3 +122,4 @@ private fun AnimeCardPreview() {
         ) {}
     }
 }
+
