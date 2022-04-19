@@ -18,6 +18,8 @@ interface AnimeRepository {
      * The result is divided into pages, [pageNumber] defines current page.
      */
     suspend fun getAnimes(query: SearchQuery, pageNumber: Int): List<Anime>
+
+    suspend fun getAnime(id: Int): Anime
 }
 
 /**
@@ -37,4 +39,6 @@ class AnimeRepositoryImpl @Inject constructor(private val api: AnimeApi) : Anime
             score = score,
         ).map(AnimeJson::toDomainModel)
     }
+
+    override suspend fun getAnime(id: Int): Anime = api.getAnime(id).toDomainModel()
 }

@@ -1,11 +1,14 @@
 package kirillkitten.shikimori.data
 
+import android.os.Parcelable
 import kirillkitten.shikimori.data.remote.AnimeJson
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
 /**
  * Model that represents an anime across the app domain.
  */
+@Parcelize
 data class Anime(
     val id: Int,
     val name: String,
@@ -14,7 +17,7 @@ data class Anime(
     val format: Format,
     val score: Float,
     val status: Status,
-) {
+) : Parcelable {
 
     /**
      * Anime release format.

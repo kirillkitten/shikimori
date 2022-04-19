@@ -1,6 +1,7 @@
 package kirillkitten.shikimori.data.remote
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 const val BASE_URL: String = "https://shikimori.one"
@@ -26,4 +27,7 @@ interface AnimeApi {
         @Query("season") season: Int?,
         @Query("score") score: Int?,
     ): List<AnimeJson>
+
+    @GET("api/animes/{id}")
+    suspend fun getAnime(@Path("id") id: Int): AnimeJson
 }

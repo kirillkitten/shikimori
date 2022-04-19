@@ -7,13 +7,18 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import kirillkitten.shikimori.R
 import kirillkitten.shikimori.ui.components.AnimeGrid
 
 @Composable
-fun AnimeGridScreen(viewModel: MainViewModel = viewModel()) {
+fun AnimeGridScreen(
+    viewModel: AnimeGridViewModel,
+    onAnimeClick: (Int) -> Unit
+) {
+    val animes = viewModel
+        .animePagingFlow
+        .collectAsLazyPagingItems()
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -21,11 +26,10 @@ fun AnimeGridScreen(viewModel: MainViewModel = viewModel()) {
             })
         },
         content = { innerPadding ->
-            val animes = viewModel.animePagingFlow.collectAsLazyPagingItems()
             AnimeGrid(
                 pagingItems = animes,
-                onClick = {
-                    // TODO Implement anime card click
+                onClick = { anime ->
+                    onAnimeClick(anime.id)
                 },
                 modifier = Modifier.padding(innerPadding),
             )

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Factory of [Flow]<[PagingData]<[Anime]>>.
  */
-fun interface PagingFlowFactory {
+fun interface AnimePagingFlowFactory {
     /**
      * Establish a new flow of paging animes with given search [query].
      */

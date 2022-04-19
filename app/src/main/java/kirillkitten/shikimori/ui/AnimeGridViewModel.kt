@@ -10,7 +10,7 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.data.SearchQuery
-import kirillkitten.shikimori.data.paging.PagingFlowFactory
+import kirillkitten.shikimori.data.paging.AnimePagingFlowFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -20,9 +20,9 @@ import javax.inject.Inject
  * [ViewModel] that holds the state of [Anime] list.
  */
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class AnimeGridViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val pagingFlowFactory: PagingFlowFactory
+    private val pagingFlowFactory: AnimePagingFlowFactory
 ) : ViewModel() {
 
     private val queryFlow: Flow<SearchQuery> = savedStateHandle
