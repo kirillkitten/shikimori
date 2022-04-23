@@ -15,6 +15,9 @@ data class AnimeJson(
     val score: Float,
     val status: String,
     @Json(name = "aired_on") val airDate: String,
+    @Json(name = "released_on") val releaseDate: String?,
+    val episodes: Int,
+    val duration: Int?,
 )
 
 /**
@@ -22,9 +25,14 @@ data class AnimeJson(
  */
 @JsonClass(generateAdapter = true)
 data class AnimeJsonImages(
+
     /** URL endpoint (without the base URL) of the preview image. */
     @Json(name = "preview") val previewEndpoint: String,
+
+    @Json(name = "original") val originalEndpoint: String,
 ) {
     /** Full URL (containing the base part) of the preview image. */
     val previewUrl: String = BASE_URL + previewEndpoint
+
+    val originalUrl: String = BASE_URL + originalEndpoint
 }

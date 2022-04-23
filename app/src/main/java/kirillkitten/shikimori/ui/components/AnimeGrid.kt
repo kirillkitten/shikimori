@@ -24,12 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.rememberImagePainter
 import kirillkitten.shikimori.data.Anime
+import kirillkitten.shikimori.ui.AnimePreview
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 import timber.log.Timber
 import java.time.LocalDate
 
 private const val ANIME_CARD_MIN_WIDTH: Int = 160
-private const val ANIME_CARD_ASPECT_RATIO: Float = 225f / 318f
+
+// TODO Move constant to more generic place
+const val ANIME_CARD_ASPECT_RATIO: Float = 225f / 318f
 
 /**
  * Displays an anime grid mapped to [pagingItems].
@@ -109,17 +112,7 @@ private fun <T : Any> LazyGridScope.items(
 @Composable
 private fun AnimeCardPreview() {
     ShikimoriTheme {
-        AnimeCard(
-            Anime(
-                id = 1,
-                name = "Тетрадь Смерти",
-                imgPreview = "",
-                airDate = LocalDate.parse("2017-01-01"),
-                format = Anime.Format.TV,
-                score = 8.0f,
-                status = Anime.Status.RELEASED,
-            )
-        ) {}
+        AnimeCard(anime = AnimePreview) {}
     }
 }
 

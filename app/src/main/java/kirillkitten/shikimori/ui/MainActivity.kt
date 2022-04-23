@@ -10,7 +10,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
+import java.time.LocalDate
 
 /**
  * [Activity][android.app.Activity] that displays an anime grid.
@@ -50,3 +52,17 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+val AnimePreview = Anime(
+    id = 1,
+    name = "Тетрадь Смерти",
+    imgPreview = "",
+    imgOriginal = "",
+    airDate = LocalDate.parse("2017-01-01"),
+    releaseDate = LocalDate.parse("2022-04-11"),
+    format = Anime.Format.TV,
+    score = 8.0f,
+    status = Anime.Status.RELEASED,
+    episodes = 24,
+    duration = 23
+)

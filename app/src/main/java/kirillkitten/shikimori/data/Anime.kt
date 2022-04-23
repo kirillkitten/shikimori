@@ -13,10 +13,14 @@ data class Anime(
     val id: Int,
     val name: String,
     val imgPreview: String,
+    val imgOriginal: String,
     val airDate: LocalDate,
+    val releaseDate: LocalDate?,
     val format: Format,
     val score: Float,
     val status: Status,
+    val episodes: Int,
+    val duration: Int?,
 ) : Parcelable {
 
     /**
@@ -76,8 +80,12 @@ fun AnimeJson.toDomainModel(): Anime = Anime(
     id = id,
     name = name,
     imgPreview = images.previewUrl,
+    imgOriginal = images.originalUrl,
     airDate = LocalDate.parse(airDate),
+    releaseDate = releaseDate?.let { LocalDate.parse(releaseDate) },
     format = Anime.Format.fromJson(format),
     score = score,
-    status = Anime.Status.fromJson(status)
+    status = Anime.Status.fromJson(status),
+    episodes = episodes,
+    duration = duration
 )
