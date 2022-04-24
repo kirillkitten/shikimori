@@ -39,6 +39,15 @@ data class Anime(
         SPECIAL("special"),
         MUSIC("music");
 
+        override fun toString(): String = when (this) {
+            TV -> "TV сериал"
+            MOVIE -> "Фильм"
+            OVA -> "OVA"
+            ONA -> "ONA"
+            SPECIAL -> "Спешл"
+            MUSIC -> "Клип"
+        }
+
         companion object {
             /**
              * Maps [json] name to [Format] constant.
@@ -61,6 +70,12 @@ data class Anime(
         ANNOUNCED("anons"),
         ONGOING("ongoing"),
         RELEASED("released");
+
+        override fun toString(): String = when (this) {
+            ANNOUNCED -> "анонс"
+            ONGOING -> "онгоинг"
+            RELEASED -> "вышло"
+        }
 
         companion object {
             /**

@@ -49,15 +49,14 @@ fun AnimeInfo(anime: Anime, modifier: Modifier = Modifier) {
         Text(text = "Тип: ${anime.format}")
         Text(text = "Эпизоды: ${anime.episodes}")
         Text(text = "Длительность эпизода: ${anime.duration}")
-        if (anime.releaseDate == null) {
-            Text(text = "Статус: ${anime.status} c ${anime.airDate.toFormattedString()}")
-        } else {
-            Text(
-                text = "Статус: ${anime.status}" +
-                    " c ${anime.airDate.toFormattedString()}" +
+        Text(
+            text = "Статус: ${anime.status} c ${anime.airDate.toFormattedString()}" +
+                if (anime.releaseDate != null) {
                     " по ${anime.releaseDate.toFormattedString()}"
-            )
-        }
+                } else {
+                    ""
+                }
+        )
         if (anime.description != null) {
             Text(text = anime.description)
         }
