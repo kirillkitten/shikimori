@@ -18,6 +18,7 @@ data class AnimeJson(
     @Json(name = "released_on") val releaseDate: String?,
     val episodes: Int,
     val duration: Int?,
+    val description: String?,
 )
 
 /**

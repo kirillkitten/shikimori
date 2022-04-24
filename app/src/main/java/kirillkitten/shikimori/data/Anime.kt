@@ -2,6 +2,7 @@ package kirillkitten.shikimori.data
 
 import android.os.Parcelable
 import kirillkitten.shikimori.data.remote.AnimeJson
+import kirillkitten.shikimori.removeTags
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
@@ -21,6 +22,7 @@ data class Anime(
     val status: Status,
     val episodes: Int,
     val duration: Int?,
+    val description: String?,
 ) : Parcelable {
 
     /**
@@ -87,5 +89,6 @@ fun AnimeJson.toDomainModel(): Anime = Anime(
     score = score,
     status = Anime.Status.fromJson(status),
     episodes = episodes,
-    duration = duration
+    duration = duration,
+    description = description?.removeTags(),
 )

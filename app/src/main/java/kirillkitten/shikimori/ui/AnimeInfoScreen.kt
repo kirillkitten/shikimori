@@ -2,12 +2,8 @@ package kirillkitten.shikimori.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -21,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.toFormattedString
-import kirillkitten.shikimori.ui.components.ANIME_CARD_ASPECT_RATIO
 import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 
 @Composable
@@ -49,24 +44,11 @@ fun AnimeInfo(anime: Anime, modifier: Modifier = Modifier) {
             contentDescription = "", // TODO Add content description
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .height(500.dp)
-                .aspectRatio(ANIME_CARD_ASPECT_RATIO)
+                .height(300.dp)
         )
-        Row {
-            Text(text = "Тип:")
-            Spacer(Modifier.width(4.dp))
-            Text(text = anime.format.name)
-        }
-        Row {
-            Text(text = "Эпизоды:")
-            Spacer(Modifier.width(4.dp))
-            Text(text = anime.episodes.toString())
-        }
-        Row {
-            Text(text = "Длительность эпизода:")
-            Spacer(Modifier.width(4.dp))
-            Text(text = anime.duration.toString())
-        }
+        Text(text = "Тип: ${anime.format}")
+        Text(text = "Эпизоды: ${anime.episodes}")
+        Text(text = "Длительность эпизода: ${anime.duration}")
         if (anime.releaseDate == null) {
             Text(text = "Статус: ${anime.status} c ${anime.airDate.toFormattedString()}")
         } else {
@@ -75,6 +57,9 @@ fun AnimeInfo(anime: Anime, modifier: Modifier = Modifier) {
                     " c ${anime.airDate.toFormattedString()}" +
                     " по ${anime.releaseDate.toFormattedString()}"
             )
+        }
+        if (anime.description != null) {
+            Text(text = anime.description)
         }
     }
 }
