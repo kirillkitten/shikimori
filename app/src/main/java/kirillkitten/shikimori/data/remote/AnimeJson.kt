@@ -12,7 +12,7 @@ data class AnimeJson(
     val name: String,
     @Json(name = "image") val images: AnimeJsonImages,
     @Json(name = "kind") val format: String,
-    val score: Float,
+    val score: Double,
     val status: String,
     @Json(name = "aired_on") val airDate: String,
     @Json(name = "released_on") val releaseDate: String?,

@@ -18,7 +18,7 @@ data class Anime(
     val airDate: LocalDate,
     val releaseDate: LocalDate?,
     val format: Format,
-    val score: Float,
+    val score: Double,
     val status: Status,
     val episodes: Int,
     val duration: Int?,

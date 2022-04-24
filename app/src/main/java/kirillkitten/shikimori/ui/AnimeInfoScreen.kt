@@ -57,6 +57,9 @@ fun AnimeInfo(anime: Anime, modifier: Modifier = Modifier) {
                     ""
                 }
         )
+        if (anime.score > 0.0) {
+            Text(text = "Рейтинг: ${anime.score}")
+        }
         if (anime.description != null) {
             Text(text = anime.description)
         }
