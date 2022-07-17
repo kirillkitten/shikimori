@@ -28,8 +28,8 @@ fun AnimeGridScreen(
         content = { innerPadding ->
             AnimeGrid(
                 pagingItems = animes,
-                onClick = { anime ->
-                    onAnimeClick(anime.id)
+                onClick = { (id) ->
+                    onAnimeClick(id)
                 },
                 modifier = Modifier.padding(innerPadding),
             )

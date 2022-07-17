@@ -13,7 +13,7 @@ data class SearchQuery(
     val format: Anime.Format?,
     val status: Anime.Status?,
     @IntRange(from = 0, to = 10) val score: Int?,
-    val order: Order?,
+    val order: Order = Order.Default,
 ) : Parcelable {
 
     /**
@@ -29,7 +29,18 @@ data class SearchQuery(
         NAME("name"),
         AIR_DATE("aired_on");
 
+        override fun toString(): String = when (this) {
+            ID -> "По ID"
+            RATING -> "По рейтингу"
+            POPULARITY -> "По популярности"
+            NAME -> "По алфавиту"
+            AIR_DATE -> "По дате выхода"
+        }
+
         companion object {
+
+            val Default: Order = RATING
+
             /**
              * Maps [json] name to [Order] constant.
              * Throws [IllegalArgumentException] if there is no suitable enum.

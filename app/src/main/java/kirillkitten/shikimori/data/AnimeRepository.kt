@@ -32,7 +32,7 @@ class AnimeRepositoryImpl @Inject constructor(private val api: AnimeApi) : Anime
         api.getAnimes(
             pageSize = ANIME_PAGE_SIZE,
             pageNumber = pageNumber,
-            order = order?.jsonName,
+            order = order.jsonName,
             format = format?.jsonName,
             status = status?.jsonName,
             season = airYear,

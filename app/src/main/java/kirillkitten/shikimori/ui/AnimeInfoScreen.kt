@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -22,15 +24,15 @@ import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 @Composable
 fun AnimeInfoScreen(viewModel: AnimeInfoViewModel) {
     val anime by viewModel.anime.observeAsState()
-    if (anime != null) {
+    anime?.let {
         Scaffold(
             topBar = {
                 TopAppBar(title = {
-                    Text(anime!!.name)
+                    Text(it.name)
                 })
             },
             content = { innerPadding ->
-                AnimeInfo(anime!!, Modifier.padding(innerPadding))
+                AnimeInfo(it, Modifier.padding(innerPadding))
             }
         )
     }
@@ -38,7 +40,7 @@ fun AnimeInfoScreen(viewModel: AnimeInfoViewModel) {
 
 @Composable
 fun AnimeInfo(anime: Anime, modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         Image(
             painter = rememberImagePainter(data = anime.imgOriginal),
             contentDescription = "", // TODO Add content description
