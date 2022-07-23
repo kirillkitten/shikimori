@@ -43,7 +43,11 @@ class AnimeGridViewModel @Inject constructor(
      * triggering list flow to emit new elements.
      */
     fun updateQuery(newQuery: SearchQuery) {
-        savedStateHandle.set(SEARCH_QUERY_KEY, newQuery)
+        savedStateHandle[SEARCH_QUERY_KEY] = newQuery
+    }
+
+    fun updateOrder(newOrder: SearchQuery.Order) {
+        updateQuery(SearchQuery(null, null, null, null, newOrder))
     }
 
     companion object {

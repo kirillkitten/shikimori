@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kirillkitten.shikimori.ui.theme.ShikimoriTheme
 import kirillkitten.shikimori.ui.theme.outlineColor
 
 /**
@@ -82,8 +83,8 @@ fun FilterChip(
 fun InputChip(
     label: String,
     isSelected: Boolean = false,
-    onClick: () -> Unit,
     onClear: () -> Unit,
+    onClick: () -> Unit,
 ) {
     var selected by rememberSaveable { mutableStateOf(isSelected) }
     Surface(
@@ -141,24 +142,37 @@ fun InputChip(
 @Preview
 @Composable
 private fun PreviewFilterChip() {
-    FilterChip(label = "Ongoing", onSelectedChange = {}, isSelected = false)
+    ShikimoriTheme {
+        FilterChip(label = "Ongoing", onSelectedChange = {}, isSelected = false)
+    }
 }
 
 @Preview
 @Composable
 private fun PreviewFilterChipSelected() {
-    FilterChip(label = "Released", onSelectedChange = {}, isSelected = true)
+    ShikimoriTheme {
+        FilterChip(label = "Released", onSelectedChange = {}, isSelected = true)
+    }
 }
 
 @Preview
 @Composable
 private fun PreviewInputChip() {
-    InputChip(label = "Type", onClick = {}, onClear = {})
+    ShikimoriTheme {
+        InputChip(label = "Type", onClick = {}, onClear = {})
+    }
 }
 
 @Preview
 @Composable
 private fun PreviewInputChipSelected() {
-    InputChip(label = "TV, Movie, OVA, ONA, Special", isSelected = true, onClick = {}, onClear = {})
+    ShikimoriTheme {
+        InputChip(
+            label = "TV, Movie, OVA, ONA, Special",
+            isSelected = true,
+            onClick = {},
+            onClear = {}
+        )
+    }
 }
 
