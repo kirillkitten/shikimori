@@ -20,8 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import kirillkitten.shikimori.R
+import kirillkitten.shikimori.data.Anime
 import kirillkitten.shikimori.data.SearchQuery
 import kirillkitten.shikimori.ui.components.AnimeGrid
 import kirillkitten.shikimori.ui.components.InputChip
@@ -54,8 +56,11 @@ fun AnimeGridScreen(
         },
         sheetPeekHeight = 0.dp,
         content = { innerPadding ->
-            Column(modifier = Modifier.padding(innerPadding)) {
-                FilterPanel(query = SearchQuery.Default) {
+            AnimeGridScreenContent(
+                pagingItems = animes,
+                modifier = Modifier.padding(innerPadding),
+                onAnimeClick = onAnimeClick,
+                onFilerClick = {
                     coroutineScope.launch {
                         if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
                             bottomSheetScaffoldState.bottomSheetState.expand()
@@ -64,16 +69,27 @@ fun AnimeGridScreen(
                         }
                     }
                 }
-                AnimeGrid(
-                    pagingItems = animes,
-                    onClick = { (id) ->
-                        onAnimeClick(id)
-                    },
-                    modifier = Modifier.padding(innerPadding),
-                )
-            }
+            )
         }
     )
+}
+
+@Composable
+fun AnimeGridScreenContent(
+    pagingItems: LazyPagingItems<Anime>,
+    modifier: Modifier = Modifier,
+    onAnimeClick: (Int) -> Unit,
+    onFilerClick: () -> Unit,
+) {
+    Column(modifier) {
+        FilterPanel(query = SearchQuery.Default, onFilerClick = onFilerClick)
+        AnimeGrid(
+            pagingItems = pagingItems,
+            onClick = { (id) ->
+                onAnimeClick(id)
+            }
+        )
+    }
 }
 
 @Composable
