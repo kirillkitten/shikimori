@@ -1,15 +1,16 @@
 package kirillkitten.shikimori.ui
 
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.BottomSheetState
 import androidx.compose.material.BottomSheetValue
+import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -119,8 +120,26 @@ fun FilterPanel(query: SearchQuery, onFilerClick: () -> Unit) {
 
 @Composable
 fun FilterDialog() {
-    Box(modifier = Modifier.fillMaxWidth()) {
-        Text(text = "Hello World")
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        // Header
+
+        // Filters
+
+        // Apply Button
+        Button(
+            onClick = {
+                /*TODO*/
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp)
+        ) {
+            Text(text = "Сохранить")
+        }
     }
 }
 
@@ -132,7 +151,7 @@ private fun FilterPanelPreview() {
     }
 }
 
-@Preview
+@Preview(showBackground = true, widthDp = 200)
 @Composable
 private fun FilterDialogPreview() {
     ShikimoriTheme {
