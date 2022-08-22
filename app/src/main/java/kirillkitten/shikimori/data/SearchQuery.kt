@@ -23,14 +23,12 @@ data class SearchQuery(
         /** Name that is used for network and database queries. */
         val jsonName: String
     ) {
-        ID("id"),
         RATING("ranked"),
         POPULARITY("popularity"),
         NAME("name"),
         AIR_DATE("aired_on");
 
         override fun toString(): String = when (this) {
-            ID -> "По ID"
             RATING -> "По рейтингу"
             POPULARITY -> "По популярности"
             NAME -> "По алфавиту"

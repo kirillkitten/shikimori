@@ -83,7 +83,7 @@ fun FilterChip(
 fun InputChip(
     label: String,
     isSelected: Boolean = false,
-    onClear: () -> Unit,
+    onClear: (() -> Unit)? = null,
     onClick: () -> Unit,
 ) {
     var selected by rememberSaveable { mutableStateOf(isSelected) }
@@ -117,7 +117,7 @@ fun InputChip(
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.body2,
             )
-            if (selected) {
+            if (onClear != null && selected) {
                 Spacer(modifier = Modifier.width(8.dp))
                 IconButton(
                     onClick = {

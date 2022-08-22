@@ -111,7 +111,6 @@ fun FilterPanel(query: SearchQuery, onFilerClick: () -> Unit) {
         InputChip(
             label = query.order.toString(),
             isSelected = true,
-            onClear = { /*TODO*/ },
             onClick = {
                 Timber.d("On filter chip clicked")
                 onFilerClick()
