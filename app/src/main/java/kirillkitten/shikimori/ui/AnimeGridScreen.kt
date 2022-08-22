@@ -20,6 +20,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -61,7 +63,7 @@ fun AnimeGridScreen(
             })
         },
         sheetContent = {
-            FilterDialog()
+            FilterDialog(viewModel.order.observeAsState(SearchQuery.Order.Default))
         },
         sheetPeekHeight = 0.dp,
         content = { innerPadding ->
@@ -126,7 +128,7 @@ fun FilterPanel(query: SearchQuery, onFilerClick: () -> Unit) {
 }
 
 @Composable
-fun FilterDialog() {
+fun FilterDialog(order: State<SearchQuery.Order>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -197,6 +199,7 @@ private fun FilterPanelPreview() {
 @Composable
 private fun FilterDialogPreview() {
     ShikimoriTheme {
-        FilterDialog()
+        // TODO Add preview
+        // FilterDialog(SearchQuery.Order.Default)
     }
 }

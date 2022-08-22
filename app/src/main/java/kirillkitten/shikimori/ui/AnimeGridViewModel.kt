@@ -1,8 +1,10 @@
 package kirillkitten.shikimori.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingData
@@ -25,9 +27,12 @@ class AnimeGridViewModel @Inject constructor(
     private val pagingFlowFactory: AnimePagingFlowFactory
 ) : ViewModel() {
 
-    private val queryFlow: Flow<SearchQuery> = savedStateHandle
+    private val queryLiveData = savedStateHandle
         .getLiveData(SEARCH_QUERY_KEY, SearchQuery.Default)
-        .asFlow()
+
+    private val queryFlow: Flow<SearchQuery> = queryLiveData.asFlow()
+
+    val order: LiveData<SearchQuery.Order> = queryLiveData.map { it.order }
 
     /**
      * Anime [Flow] that is exposed by [Pager] and could be observable from the UI.
